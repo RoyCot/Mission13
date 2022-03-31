@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Bowler Database";
+}
+
+@model List<Bowler>
+
+<div>
+<h1 class="display-4">Bowlers</h1>
+
+<table class="table table-bordered table-striped">
+    <thead class="font-weight-bold">
+        <tr>
+            <th>First Name</th>
+            <th>Middle Initial</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Phone</th>
+            <th>Team Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Bowler b in ViewBag.Bowlers)
+        {
+            <tr>
+                <td>@b.BowlerFirstName</td>
+                <td>@b.BowlerMiddleInit</td>
+                <td>@b.BowlerLastName</td>
+                <td>@b.BowlerAddress</td>
+                <td>@b.BowlerCity</td>
+                <td>@b.BowlerState</td>
+                <td>@b.BowlerZip</td>
+                <td>@b.BowlerPhoneNumber</td>
+                @foreach (Team t in ViewBag.Teams)
+                {
+                    if (t.TeamId == b.TeamId)
+                    {
+                        <td>@t.TeamName</td>
+                    }
+                }
+                <td><a asp-controller="Home" asp-action="Edit" asp-route-bowlerid="@b.BowlerId">Edit</a></td>
+                <td><a asp-controller="Home" asp-action="Delete" asp-route-bowlerid="@b.BowlerId">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="AddBowler">Add a Bowler</a>
+</div>
+</div>
